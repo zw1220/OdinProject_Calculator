@@ -32,7 +32,8 @@ body {
 }
 
 /* Remove default style */
-button {
+button,
+input {
   width: 100%;
   border: none;
   outline: none;
@@ -88,8 +89,41 @@ main {
   grid-gap: 10px;
 }
 
+.span-1 {
+  grid-column: span 1;
+}
+
 .span-2 {
   grid-column: span 2;
+}
+
+.span-3 {
+  grid-column: span 3;
+}
+
+/* Reset input range default style */
+input[type="range"] {
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Track style for Chrome */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 10px;
+  border: 2px solid var(--color1);
+  border-radius: 20px;
+  background: var(--color1);
+}
+
+/* Thumb style for Chrome */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 20px;
+  background-color: var(--color1);
+  margin-top: -8px;
 }
 
 .btn {

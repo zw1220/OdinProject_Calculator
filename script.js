@@ -3,6 +3,7 @@ let secondOperand= "";
 let currentOperation = null;
 // A boolean variable to control if statement
 let shouldResetScreen = false;
+let decimalAdjust = 1;
 
 
 const lastScreen      = document.getElementById("lastScreen");
@@ -78,7 +79,7 @@ function evaluate() {
 
   // Prevent error from evaluate without operator
   if (currentOperation === null) return
-  if (currentOperation = "÷" && currentScreen.textContent === "0") {
+  if (currentOperation === "÷" && currentScreen.textContent === "0") {
     alert("Can't divide by 0");
     return;
   }
@@ -92,9 +93,9 @@ function evaluate() {
   currentOperation = null;
 }
 
-// Round evaluate result into 4 decimal point
+// Round evaluate result into decimal point
 function roundResult(number) {
-  return Math.round(number * 10000) / 10000;
+  return Math.round(number * decimalAdjust) / decimalAdjust;
 }
 
 // Reset all to default setting
@@ -104,6 +105,9 @@ function clear() {
   firstOperand = "";
   secondOperand= "";
   currentOperation = null;
+  decimalAdjust = 1;
+  decimalValue.innerHTML = "Decimal = 0";
+  decimalSlider.value = 0;
 }
 
 // Remove last number from current screen
@@ -191,3 +195,36 @@ function convertOperator(keyboardOperator) {
 // function keyPressed(e) {
 //   console.log(e.key);
 // }
+
+
+// Decimal slider
+
+const decimalValue   = document.getElementById("decimalValue");
+const decimalSlider  = document.getElementById("decimalSlider");
+
+decimalSlider.addEventListener("change", (e) => updateDecimalValue(e.target.value));
+decimalSlider.addEventListener("mousemove", (e) => updateDecimalValue(e.target.value));
+decimalSlider.addEventListener("change", (e) => changeDecimal(e.target.value));
+
+// Change decimal value display based on slider
+function updateDecimalValue(value) {
+  decimalValue.innerHTML = `Decimal = ${value}`;
+}
+
+// Change decimal value of evaluate() result
+function changeDecimal(value) {
+  switch(value) {
+    case "0":
+    decimalAdjust = 1;
+    break;
+    case "1":
+    decimalAdjust = 10;
+    break;
+    case "2":
+    decimalAdjust = 100;
+    break;
+    case "3":
+    decimalAdjust = 1000;
+    break;
+  }
+}
